@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<!-- html, head, body[header, main, footer] -->
+<html lang="en" data-theme="dark">
+<!-- head, body[header, main, footer] -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FP² — The Final Formula</title>
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="description" content="From Fried's Phenotype to FP²: The Z-Score Formula That Measures the Will to Power" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="ukhona/css/head.css" rel="stylesheet" />
+  <script src="ukhona/js/mathjax.js"></script>
+  <script id="MathJax-script" defer
+     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+    .hero-formula {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+      border-radius: 24px;
+      margin-bottom: 50px;
+      border: 2px solid var(--accent, #6366f1);
+    }
+    
+    .hero-formula h1 {
+      font-size: 4em;
+      font-weight: 900;
+      letter-spacing: -3px;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .formula-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 3px solid var(--accent, #6366f1);
+      border-radius: 20px;
+      padding: 50px 30px;
+      margin: 50px 0;
+      text-align: center;
+      font-size: 2em;
+      box-shadow: 0 0 60px rgba(99, 102, 241, 0.4);
+      position: relative;
+    }
+    
+    .formula-box::before {
+      content: "THE FORMULA";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-dark, #0a0a0f);
+      padding: 5px 20px;
+      font-size: 0.4em;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--accent, #6366f1);
+    }
+    
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 40px 0;
+    }
+    
+    @media (max-width: 968px) {
+      .component-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .component-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-formula h1 {
+        font-size: 2.5em;
+      }
+    }
+    
+    .component-card {
+      background: rgba(99, 102, 241, 0.05);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .component-card:hover {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--accent, #6366f1);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+    
+    .component-card .symbol {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: var(--accent, #6366f1);
+      margin-bottom: 15px;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .component-card h3 {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: var(--text-primary, #e8e8f0);
+    }
+    
+    .component-card p {
+      font-size: 0.9em;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+    
+    .comparison-table {
+      width: 100%;
+      margin: 30px 0;
+      border-collapse: collapse;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .comparison-table th {
+      background: rgba(99, 102, 241, 0.1);
+      font-weight: 700;
+      color: var(--accent, #6366f1);
+    }
+    
+    .comparison-table tr:hover {
+      background: rgba(99, 102, 241, 0.05);
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));
+      border-left: 4px solid #ec4899;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 8px;
+      font-size: 1.1em;
+    }
+    
+    .insight-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 2px solid #10b981;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .insight-box h3 {
+      color: #10b981;
+      margin-bottom: 15px;
+    }
+    
+    blockquote.elegant {
+      border-left: none;
+      text-align: center;
+      font-size: 1.5em;
+      font-style: italic;
+      padding: 40px;
+      margin: 50px 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+      border-radius: 16px;
+      position: relative;
+    }
+    
+    blockquote.elegant::before {
+      content: '"';
+      font-size: 4em;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      color: var(--accent, #6366f1);
+      opacity: 0.3;
+    }
+    
+    .upgrade-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+      border: 2px solid #f59e0b;
+      border-radius: 16px;
+      padding: 40px;
+      margin: 40px 0;
+      text-align: center;
+    }
+    
+    .upgrade-banner h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #f59e0b;
+    }
+  </style>
+</head>
+<!-- body[header, main, footer] -->
+<body>
+  <div class="scroll-indicator"><div class="scroll-progress"></div></div>
+  <div class="bg-pattern"></div>
+  <!-- header, main, footer -->
+  <header class="header">
+    <div class="nav-container wrap-max">
+      <img src="https://abikesa.github.io/logos/assets/ukubona-dark.png"
+           alt="Ukubona LLC Logo"
+           id="logo"
+           class="logo" />
+
+      <div class="top-right">
+        <ul class="nav-links">
+          <li><a href="https://ukb-dt.github.io/canon-00/" class="nav-link" data-nav="home">Home</a></li>
+        </ul>
+
+        <button class="menu-icon" id="menuIcon" role="button" aria-label="Open navigation menu" aria-expanded="false">
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+        </button>
+
+        <button id="toggle-theme" aria-label="Toggle theme">🌙</button>
+      </div>
+    </div>
+    <div class="app-grid wrap-max" id="gridMenu" aria-hidden="true">
+      <!-- UKB-SLACK-STACK CALCULUS — 8 COMPONENTS -->
+      <a href="#numerator"><div class="icon-box">∂</div>Numerator</a>
+      <a href="#denominator"><div class="icon-box">√</div>Denominator</a>
+      <a href="#landscape"><div class="icon-box">⛰</div>Landscape</a>
+      <a href="#basin"><div class="icon-box">⚱</div>Basin</a>
+      <a href="#trajectory"><div class="icon-box">📈</div>Trajectory</a>
+      <a href="#discharge"><div class="icon-box">⚡</div>Discharge</a>
+      <a href="#phenotype"><div class="icon-box">🧬</div>Phenotype</a>
+      <a href="#twin"><div class="icon-box">👥</div>Twin</a>
+    </div>
+  </header>
+
+  <!-- main[sections], footer -->
+  <main class="page wrap-max">
+
+    <div class="hero-formula">
+      <h1>FP²</h1>
+      <p style="font-size: 1.3em; opacity: 0.9; font-style: italic;">
+        The Fried Phenotype, Squared
+      </p>
+      <p style="font-size: 1.1em; margin-top: 20px; opacity: 0.7;">
+        From Binary Checklist to Continuous Vitality Measurement
+      </p>
+    </div>
+
+    <div class="formula-box">
+      $$
+      z = \frac{\frac{dE_x}{dt} - \frac{dE_{\bar{x}}}{dt}}{\sqrt{\left|\frac{d^2E_x}{dt^2}\right|}}
+      $$
+    </div>
+
+    <section class="card">
+      <h1>The Formula Decoded</h1>
+      <p style="font-size: 1.2em; margin-bottom: 30px;">
+        This is not just mathematics. This is <strong>the Will to Power made quantitative</strong>.
+      </p>
+
+      <div class="component-grid">
+        <div class="component-card">
+          <div class="symbol">dE<sub>x</sub>/dt</div>
+          <h3>Your Power</h3>
+          <p>The individual's actual rate of energy discharge. Measured in Watts. This is <em>your</em> capacity.</p>
+        </div>
+
+        <div class="component-card">
+          <div class="symbol">dE<sub>x̄</sub>/dt</div>
+          <h3>Expected Power</h3>
+          <p>The normative discharge rate for your age and sex. The "average person" baseline.</p>
+        </div>
+
+        <div class="component-card">
+          <div class="symbol">d²E<sub>x</sub>/dt²</div>
+          <h3>Volatility</h3>
+          <p>The second derivative—how much your power <em>jitters</em>. Basin stability. Fragility signal.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>The numerator</strong> asks: "How far are you from the mean?"<br>
+        <strong>The denominator</strong> asks: "How shaky is that distance?"<br><br>
+        Together, they measure: <em>"How robustly can you discharge power relative to your cohort?"</em>
+      </div>
+    </section>
+
+    <section class="card">
+      <h1>Why The Upgrade Matters</h1>
+
+      <div class="upgrade-banner">
+        <h2>From μ/σ to dE/dt</h2>
+        <p style="font-size: 1.1em; line-height: 1.8;">
+          The original formulation used static population parameters (μ, σ).<br>
+          The upgraded formula uses <strong>dynamic derivatives</strong>.<br>
+          This shift transforms everything.
+        </p>
+      </div>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>Old: z = (W - μ)/σ</th>
+            <th>New: z = (dE<sub>x</sub>/dt - dE<sub>x̄</sub>/dt)/√|d²E<sub>x</sub>/dt²|</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>What it measures</strong></td>
+            <td>Snapshot deviation from population</td>
+            <td>Rate of discharge relative to age-matched trajectory</td>
+          </tr>
+          <tr>
+            <td><strong>Time dimension</strong></td>
+            <td>Static (single moment)</td>
+            <td>Dynamic (velocity and acceleration)</td>
+          </tr>
+          <tr>
+            <td><strong>Denominator</strong></td>
+            <td>Population standard deviation</td>
+            <td>Individual volatility (basin depth)</td>
+          </tr>
+          <tr>
+            <td><strong>Clinical insight</strong></td>
+            <td>"Are you weak?"</td>
+            <td>"Is your power declining faster than it should?"</td>
+          </tr>
+          <tr>
+            <td><strong>Intervention timing</strong></td>
+            <td>After collapse</td>
+            <td>Before collapse (curvature warning)</td>
+          </tr>
+          <tr>
+            <td><strong>Philosophical basis</strong></td>
+            <td>Deficit model (what's missing)</td>
+            <td>Discharge model (what can be spent)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="numerator">
+      <h1>The Numerator: Signal Above Noise</h1>
+      
+      $$
+      \frac{dE_x}{dt} - \frac{dE_{\bar{x}}}{dt}
+      $$
+
+      <p>
+        This is the <strong>excess discharge capacity</strong>. It answers: "How much more (or less) power 
+        can you generate compared to the average person of your age and sex?"
+      </p>
+
+      <div class="insight-box">
+        <h3>Why Derivatives, Not Raw Values?</h3>
+        <p>
+          Because aging is a <em>process</em>, not a state. A 30-year-old generating 150W and an 80-year-old 
+          generating 60W are not comparable in raw terms. But their <strong>rates of discharge</strong> 
+          relative to their cohort <em>are</em> comparable.
+        </p>
+        <p style="margin-top: 15px;">
+          The derivative normalizes across the lifespan. It makes the neonate's kick and the elder's 
+          walk commensurable.
+        </p>
+      </div>
+
+      <p>
+        If the numerator is <strong>positive</strong>, you're discharging more than expected (z > 0).<br>
+        If it's <strong>negative</strong>, you're below the curve (z < 0).<br>
+        If it's <strong>crossing zero from above</strong>, intervention is needed.
+      </p>
+    </section>
+
+    <section class="card" id="denominator">
+      <h1>The Denominator: The Depth of Your Basin</h1>
+      
+      $$
+      \sqrt{\left|\frac{d^2E_x}{dt^2}\right|}
+      $$
+
+      <p>
+        This is the <strong>volatility</strong> of your power output. It measures how much your discharge 
+        capacity fluctuates—the second derivative, the curvature, the jitter.
+      </p>
+
+      <div class="highlight-box">
+        <strong>Why is this "crudely" the standard deviation?</strong><br><br>
+        Standard deviation measures spread: σ = √(variance).<br>
+        The second derivative measures how quickly something is accelerating/decelerating.<br>
+        For a continuous trajectory, <strong>acceleration ≈ variance over time</strong>.<br><br>
+        Taking the square root brings it back to the "scale" of the original signal.
+      </div>
+
+      <h3 style="margin-top: 40px;">What High vs Low Denominator Means</h3>
+      
+      <p><strong>High √|d²E/dt²|</strong> → Large volatility → Shallow basin → Fragile system</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Power output is erratic</li>
+        <li>Small perturbations cause large swings</li>
+        <li>High fall risk, high collapse risk</li>
+      </ul>
+
+      <p style="margin-top: 20px;"><strong>Low √|d²E/dt²|</strong> → Small volatility → Deep basin → Robust system</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Power output is stable</li>
+        <li>System absorbs perturbations</li>
+        <li>Antifragile: stress improves performance</li>
+      </ul>
+
+      <div class="insight-box" style="margin-top: 30px;">
+        <h3>The Clinical Implication</h3>
+        <p>
+          Two people can have the same raw z-score, but the one with <strong>lower denominator</strong> 
+          (more stable) has a deeper basin. They can withstand illness, injury, stress without collapse.
+        </p>
+        <p style="margin-top: 15px;">
+          This is why FP² is superior to Fried's checklist: it captures <em>resilience</em>, not just deficit.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" id="trajectory">
+      <h1>The Z-Trajectory: Life's Differential Geometry</h1>
+
+      <p style="font-size: 1.2em; margin-bottom: 30px;">
+        The formula gives you <strong>z(t)</strong>—your position in the basin at time <em>t</em>.
+        But the real power is in the <strong>trajectory</strong>: how z changes over time.
+      </p>
+
+      $$
+      \frac{dz}{dt} = \text{velocity of vitality}
+      $$
+
+      $$
+      \frac{d^2z}{dt^2} = \text{acceleration toward collapse (or recovery)}
+      $$
+
+      <div class="component-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="component-card">
+          <div class="symbol">dz/dt > 0</div>
+          <h3>Ascending</h3>
+          <p>You are getting stronger relative to your cohort. Intervention is working. Basin is deepening.</p>
+        </div>
+
+        <div class="component-card">
+          <div class="symbol">dz/dt < 0</div>
+          <h3>Descending</h3>
+          <p>You are weakening faster than aging predicts. Red flag. Curvature change detected.</p>
+        </div>
+      </div>
+
+      <blockquote class="elegant">
+        The z-trajectory is the mirror of your becoming.<br>
+        Ukubona: to see. Ivyabona: to witness.
+      </blockquote>
+    </section>
+
+    <section class="card">
+      <h1>From Stone to Discharge: The Lineage</h1>
+
+      <p>This formula is the endpoint of a long evolution:</p>
+
+      <div style="margin: 30px 0; padding-left: 20px; border-left: 3px solid var(--accent, #6366f1);">
+        <p><strong>1. The Stone (14 lbs)</strong> → Static mass, human-scale invariant</p>
+        <p style="margin-top: 15px;"><strong>2. Linda Fried's Phenotype</strong> → Binary frailty checklist (0-5 deficits)</p>
+        <p style="margin-top: 15px;"><strong>3. Raw Wattage</strong> → Power output (77W, 123W)</p>
+        <p style="margin-top: 15px;"><strong>4. Z-Score (static)</strong> → (W - μ)/σ</p>
+        <p style="margin-top: 15px;"><strong>5. FP² (dynamic)</strong> → <span style="color: var(--accent, #6366f1); font-weight: 700;">(dE<sub>x</sub>/dt - dE<sub>x̄</sub>/dt) / √|d²E<sub>x</sub>/dt²|</span></p>
+      </div>
+
+      <p style="margin-top: 30px;">
+        Each step adds a dimension. The final formula captures:
+      </p>
+      <ul style="margin-left: 20px; margin-top: 15px; line-height: 2;">
+        <li><strong>Position</strong> (where you are)</li>
+        <li><strong>Velocity</strong> (where you're going)</li>
+        <li><strong>Stability</strong> (how deep your basin)</li>
+        <li><strong>Trajectory</strong> (your path through vitality space)</li>
+      </ul>
+    </section>
+
+    <section class="card" id="phenotype">
+      <h1>Why FP² Beats Fried's Phenotype</h1>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Fried FP</th>
+            <th>FP²</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Measurement type</strong></td>
+            <td>Categorical (Frail/Pre-frail/Robust)</td>
+            <td>Continuous (z ∈ ℝ)</td>
+          </tr>
+          <tr>
+            <td><strong>Data collection</strong></td>
+            <td>Episodic (clinic visits)</td>
+            <td>Continuous (wearable sensors)</td>
+          </tr>
+          <tr>
+            <td><strong>Predictive power</strong></td>
+            <td>Post-collapse detection</td>
+            <td>Pre-collapse warning (d²z/dt²)</td>
+          </tr>
+          <tr>
+            <td><strong>Personalization</strong></td>
+            <td>Population norms</td>
+            <td>Individual trajectory baseline</td>
+          </tr>
+          <tr>
+            <td><strong>Lifespan coverage</strong></td>
+            <td>Elderly only (65+)</td>
+            <td>Cradle to grave (0-100+ years)</td>
+          </tr>
+          <tr>
+            <td><strong>Intervention guidance</strong></td>
+            <td>Generic ("exercise more")</td>
+            <td>Specific (target dz/dt, reduce volatility)</td>
+          </tr>
+          <tr>
+            <td><strong>Philosophical basis</strong></td>
+            <td>Deficit accumulation</td>
+            <td>Discharge capacity (Will to Power)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="twin">
+      <h1>The Digital Twin: Operationalizing FP²</h1>
+
+      <p>
+        The formula is useless without implementation. Here's how the Digital Twin computes z(t) in real-time:
+      </p>
+
+      <h3 style="margin-top: 30px;">Step 1: Capture dE<sub>x</sub>/dt</h3>
+      <p>Wearable sensors measure:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>Accelerometry → movement</li>
+        <li>Heart rate → metabolic cost</li>
+        <li>Duration → sustained discharge</li>
+      </ul>
+      <p style="margin-top: 10px;">Algorithm converts to Watts using biomechanical models.</p>
+
+      <h3 style="margin-top: 30px;">Step 2: Load dE<sub>x̄</sub>/dt</h3>
+      <p>Look up age/sex-matched normative power curve from reference database.</p>
+
+      <h3 style="margin-top: 30px;">Step 3: Compute d²E<sub>x</sub>/dt²</h3>
+      <p>Calculate second derivative from recent power history (rolling 7-day window).</p>
+
+      <h3 style="margin-top: 30px;">Step 4: Calculate z</h3>
+      <p>Plug into formula. Update continuously.</p>
+
+      <h3 style="margin-top: 30px;">Step 5: Track dz/dt</h3>
+      <p>Monitor trajectory slope. Alert if d²z/dt² < 0 (accelerating decline).</p>
+
+      <div class="insight-box" style="margin-top: 40px;">
+        <h3>The Result</h3>
+        <p>
+          A single, continuous metric that spans from birth to death. No equipment. No clinic. 
+          Just motion, time, and mathematics.
+        </p>
+        <p style="margin-top: 15px; font-style: italic;">
+          "Stop measuring the bucket. Start measuring the flow."
+        </p>
+      </div>
+    </section>
+
+    <blockquote class="elegant" style="margin-top: 60px;">
+      We do not live in landscapes.<br>
+      We live in the basins our motion reveals.<br><br>
+      FP² is the map of that motion.
+    </blockquote>
+
+  </main>
+  <!-- footer -->
+  <footer class="footer">
+    <div class="wrap-max footer-wrap">
+      <div class="footer-chorus" aria-label="Ukubona chorus">
+        <span class="chip">"Ukubona" means to see</span>
+        <span class="chip"><em>"Ivyabona" means to witness</em> —</span>
+        <span class="chip">to look into the mirror.</span>
+      </div>
+      <div class="footer-extra" hidden></div>
+      <div class="footer-footnote" aria-live="polite">
+        <em style="opacity: 0.7;">FP² is that mirror, made mathematical.</em>
+      </div>
+      <div class="footer-micro" style="margin-top:12px">
+        <p>© 2025 Ukubona LLC · <a href="/assets/files/ukubona.vcf" download>vCard</a> · Johns Hopkins Enterprise Vendor (June 2025)</p>
+      </div>
+    </div>
+  </footer>
+  <script src="ukhona/js/main.js"></script>
+</body>
+</html>
